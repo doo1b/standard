@@ -22,6 +22,9 @@ function App() {
     if (name === "" || gold === "" || silver === "" || bronze === "") {
       alert("모든 항목을 입력해주세요.");
       return true;
+    } else if (gold < 0 || silver < 0 || bronze < 0) {
+      alert("메달 개수는 음수일 수 없습니다.");
+      return true;
     } else return false;
   }
 
