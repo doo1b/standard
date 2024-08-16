@@ -20,8 +20,7 @@ function App() {
 
   return (
     <div>
-      <h1>Counter App</h1>
-      <p>Welcome to my website!</p>
+      <Header title={title} />
 
       <div>
         <Counter increment={increment} count={count} />
@@ -31,7 +30,7 @@ function App() {
         <Status count={count} />
       </div>
 
-      <footer>© 2024 My Website</footer>
+      <Footer year={year} />
     </div>
   );
 }
