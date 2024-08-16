@@ -1,35 +1,76 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { MedalBox } from "./MedalBox";
+import { InputBox } from "./InputBox";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState("");
+  const [gold, setGold] = useState("");
+  const [silver, setSilver] = useState("");
+  const [bronze, setBronze] = useState("");
+  const [medals, setMedals] = useState([]);
+  const allName = medals.map((m) => m.name);
+
+  const newMedal = {
+    name: name,
+    gold: gold,
+    silver: silver,
+    bronze: bronze,
+  };
+
+  function emptyForm() {
+    if (name === "" || gold === "" || silver === "" || bronze === "") {
+      alert("모든 항목을 입력해주세요.");
+      return true;
+    } else return false;
+  }
+
+  function handleAdd() {
+    if (emptyForm()) return;
+    allName.includes(name)
+      ? alert("해당 국가가 이미 존재합니다.")
+      : setMedals((medal) => [...medal, newMedal]);
+    initialize();
+  }
+
+  function handleUpdate() {
+    if (emptyForm()) return;
+    !allName.includes(name)
+      ? alert("리스트에 없는 국가입니다.")
+      : setMedals((medal) =>
+          medal.map((m) => (m.name === name ? newMedal : m))
+        );
+    initialize();
+  }
+
+  function initialize() {
+    setName("");
+    setGold("");
+    setSilver("");
+    setBronze("");
+  }
+
+  function handleDel(name) {
+    setMedals((medal) => medal.filter((m) => m.name !== name));
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <InputBox
+        name={name}
+        setName={setName}
+        gold={gold}
+        setGold={setGold}
+        silver={silver}
+        setSilver={setSilver}
+        bronze={bronze}
+        setBronze={setBronze}
+        add={handleAdd}
+        update={handleUpdate}
+      />
+      <MedalBox medals={medals} del={handleDel} />
+    </div>
+  );
 }
 
-export default App
+export default App;
