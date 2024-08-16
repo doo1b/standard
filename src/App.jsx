@@ -6,8 +6,9 @@
 // - `Footer` 컴포넌트로 `year` props를 전달하여 연도를 설정하세요.
 
 import React, { useState } from "react";
-import { Counter } from "./Counter";
-import { Status } from "./Status";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
+import { Content } from "./Content";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -22,13 +23,7 @@ function App() {
     <div>
       <Header title={title} />
 
-      <div>
-        <Counter increment={increment} count={count} />
-      </div>
-
-      <div>
-        <Status count={count} />
-      </div>
+      <Content increment={increment} count={count} />
 
       <Footer year={year} />
     </div>
